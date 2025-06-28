@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>JU_MP Code Redemption</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #2b0080;
+      color: #f0f0f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+      min-height: 100vh;
+      margin: 0;
+    }
+    h1 {
+      color: #00aaff;
+      margin-bottom: 1rem;
+    }
+    input[type="text"] {
+      padding: 0.75rem;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: none;
+      width: 250px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-right: 0.5rem;
+    }
+    button {
+      padding: 0.75rem 1.5rem;
+      font-weight: 700;
+      background: #00aaff;
+      border: none;
+      border-radius: 5px;
+      color: #0f0f0f;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #0088cc;
+    }
+    #result {
+      margin-top: 1rem;
+      font-weight: 600;
+    }
+    #download-section {
+      margin-top: 2rem;
+      display: none;
+      text-align: center;
+    }
+    #download-section a {
+      background: #00aaff;
+      color: #0f0f0f;
+      padding: 0.75rem 2rem;
+      border-radius: 25px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background 0.3s ease;
+      display: inline-block;
+    }
+    #download-section a:hover {
+      background: #0088cc;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>JU_MP Code Redemption</h1>
+  <p>Enter your unique code from the physical edition to unlock your digital copy!</p>
+  
+  <div>
+    <input type="text" id="codeInput" placeholder="Enter your code" maxlength="10" />
+    <button onclick="checkCode()">Submit</button>
+  </div>
+  
+  <p id="result"></p>
+  
+  <section id="download-section">
+    <h2>Thank you for your support!</h2>
+    <p>Your digital copy is ready to download:</p>
+    <a href="https://turbowarp.org/editor" target="_blank" rel="noopener noreferrer">Download JU_MP</a>
+  </section>
+  
+  <script>
+    // List of valid unique codes (add your real codes here)
+    const validCodes = [
+      "JU001", "JU002", "JU003", "HAMBURGER30", "VIPACCESS"
+    ];
+    
+    // Track codes redeemed this session (client-side only)
+    const redeemedCodes = new Set();
+    
+    function checkCode() {
+      const input = document.getElementById("codeInput");
+      const result = document.getElementById("result");
+      const downloadSection = document.getElementById("download-section");
+      const code = input.value.trim().toUpperCase();
+      
+      if (code === "") {
+        result.textContent = "Please enter a code.";
+        downloadSection.style.display = "none";
+        return;
+      }
+      
+      if (!validCodes.includes(code)) {
+        result.textContent = "Invalid code. Please try again.";
+        downloadSection.style.display = "none";
+        return;
+      }
+      
+      if (redeemedCodes.has(code)) {
+        result.textContent = "This code has already been redeemed.";
+        downloadSection.style.display = "none";
+        return;
+      }
+      
+      // Code is valid and not redeemed
+      redeemedCodes.add(code);
+      result.textContent = "Code accepted! Thank you!";
+      downloadSection.style.display = "block";
+      input.value = "";
+    }
+  </script>
+
+</body>
+</html>
